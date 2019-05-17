@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.example.org">
+
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.example.org">
+			<xs:include schemaLocation="MailingListRequest.xsd" />
+			<xs:include schemaLocation="MailingListResponse.xsd" />
+		</xs:schema>
+	</wsdl:types>
+
+	<wsdl:message name="RegisterRequestMsg">
+		<wsdl:part element="tns:person" name="RegisterRequest" />
+	</wsdl:message>
+	<wsdl:message name="RegisterResponseMsg">
+		<wsdl:part element="tns:RegisterResponse"
+			name="RegisterResponse" />
+	</wsdl:message>
+
+	<wsdl:portType name="MailingListService">
+		<wsdl:operation name="Register">
+			<wsdl:input message="RegisterRequestMsg" />
+			<wsdl:output message="RegisterResponseMsg" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="MailingListSOAP"
+		type="MailingListService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="Register">
+			<soap:operation soapAction="/Register" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+	<wsdl:service name="MailingListSOAP">
+		<wsdl:port name="MailingList" binding="MailingListSOAP">
+			<soap:address location="http://www.example.org/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

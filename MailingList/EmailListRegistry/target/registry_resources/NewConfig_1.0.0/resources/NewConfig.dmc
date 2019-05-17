@@ -1,0 +1,10 @@
+map_S_root_S_person = function(){ 
+var outputperson={};
+
+outputperson =  {};
+outputperson.name = inputroot.name;
+outputperson.address = inputroot.dob;
+return outputperson;
+};
+
+

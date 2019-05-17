@@ -1,0 +1,14 @@
+map_S_person_S_root = function(){ 
+var outputroot={};
+
+outputroot =  {};
+outputroot.Name = inputperson.name;
+outputroot.Address = inputperson.address;
+outputroot.Phone = inputperson.phone;
+outputroot.Email = inputperson.email;
+return outputroot;
+};
+
+
+
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/emailList" name="EmailList" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST">
+        <inSequence>
+            <log level="custom">
+                <property name="entryLog" value="Incoming message received..."/>
+            </log>
+            <validate cache-schema="true" description="" source="//person">
+                <schema key="conf:myresources/requestschema.xsd"/>
+                <on-fail>
+                    <log category="ERROR" level="custom">
+                        <property name="message" value="Validation unsuccessful"/>
+                        <property expression="get-property('MessageID')" name="message_id"/>
+                        <property expression="get-property('ERROR_MESSAGE')" name="error_message"/>
+                    </log>
+                </on-fail>
+            </validate>
+            <xslt key="conf:myresources/xslt2.xslt">
+                <resource key="conf:myresources/xslt1.xslt" location="xslt1.xslt"/>
+            </xslt>
+            <send>
+                <endpoint key="EmailListEP"/>
+            </send>
+        </inSequence>
+        <outSequence>
+            <log description="" level="custom">
+                <property name="outMessage" value="Response message sent to client..."/>
+            </log>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+</api>
